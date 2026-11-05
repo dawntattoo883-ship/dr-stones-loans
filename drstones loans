@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advance Loan - Secure Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            900: '#78350f',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-full bg-slate-50 flex flex-col justify-between font-sans antialiased text-slate-800">
+
+    <!-- Top Bar / Header -->
+    <header class="bg-amber-600 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="bg-white p-2 rounded-lg text-amber-600 shadow">
+                    <i class="fa-solid fa-wallet text-xl"></i>
+                </div>
+                <span class="text-white font-bold text-lg sm:text-xl tracking-wide">Advance Loan Portal</span>
+            </div>
+            <div class="text-xs sm:text-sm text-amber-100 flex items-center space-x-1">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Secure SSL Encryption</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow flex items-center justify-center px-4 sm:px-6 lg:px-8 py-10">
+        <div class="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
+            
+            <!-- Card Header -->
+            <div class="bg-gradient-to-r from-amber-600 to-amber-700 px-6 py-6 text-center text-white">
+                <h1 class="text-2xl font-bold">Account Access</h1>
+                <p class="text-amber-100 text-sm mt-1">Enter your phone number to check loan eligibility</p>
+            </div>
+
+            <!-- Card Body / Form -->
+            <div class="p-6 sm:p-8">
+                <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-5">
+                    
+                    <div>
+                        <label for="phoneNumber" class="block text-sm font-medium text-slate-700 mb-1">Mobile Phone Number</label>
+                        <div class="relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <input type="tel" id="phoneNumber" required placeholder="e.g., 0712345678" 
+                                class="block w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm">
+                        </div>
+                        <p class="text-xs text-slate-500 mt-1">Format: Enter registered mobile subscriber number</p>
+                    </div>
+
+                    <div>
+                        <label for="pinCode" class="block text-sm font-medium text-slate-700 mb-1">Account PIN / Password</label>
+                        <div class="relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-lock"></i>
+                            </div>
+                            <input type="password" id="pinCode" required placeholder="••••" max-length="6"
+                                class="block w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm">
+                        </div>
+                    </div>
+
+                    <div id="errorMsg" class="hidden text-sm text-red-600 bg-red-50 p-3 rounded-lg border border-red-200">
+                        Please enter a valid mobile number and PIN.
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 px-4 rounded-xl transition duration-200 shadow-lg shadow-amber-600/20 flex items-center justify-center space-x-2">
+                        <span>Continue & Check Limit</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <!-- Loading State (Hidden by default) -->
+                <div id="loadingState" class="hidden text-center py-8">
+                    <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-amber-600 border-t-transparent"></div>
+                    <p class="text-sm text-slate-600 mt-3 font-medium">Verifying account status...</p>
+                </div>
+
+                <!-- Success State Simulation (Hidden by default) -->
+                <div id="successState" class="hidden text-center py-6">
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-600 mb-4">
+                        <i class="fa-solid fa-check text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800">Access Granted</h3>
+                    <p class="text-sm text-slate-600 mt-1">Redirecting to your advance dashboard...</p>
+                </div>
+            </div>
+
+            <!-- Footer Notice -->
+            <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 text-center">
+                <p class="text-xs text-slate-500">
+                    Protected by advanced encryption. Terms & Conditions apply.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+        &copy; 2026 Advance Loan Services. All rights reserved.
+    ></footer>
+
+    <!-- Interactive Script -->
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            const phone = document.getElementById('phoneNumber').value.trim();
+            const pin = document.getElementById('pinCode').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (!phone || !pin) {
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+
+            errorMsg.classList.add('hidden');
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('loadingState').classList.remove('hidden');
+
+            // Simulate server authentication delay
+            setTimeout(() => {
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('successState').classList.remove('hidden');
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
