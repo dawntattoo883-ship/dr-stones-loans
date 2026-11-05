@@ -1,150 +1,148 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advance Loan - Secure Portal</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#fffbeb',
-                            100: '#fef3c7',
-                            500: '#f59e0b',
-                            600: '#d97706',
-                            700: '#b45309',
-                            900: '#78350f',
-                        }
-                    }
-                }
-            }
+    <title>Loan Application Form</title>
+    <style>
+        * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+        
+        /* Main background using MTN Signature Yellow */
+        body { 
+            background-color: #FFCC00; 
+            margin: 0; 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh;
         }
-    </script>
+
+        /* Form container styling */
+        .container { 
+            background: #000000; 
+            color: #ffffff;
+            max-width: 480px; 
+            width: 100%; 
+            border-radius: 12px; 
+            padding: 28px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25); 
+        }
+
+        h2 { margin-top: 0; color: #FFCC00; font-size: 22px; }
+        p { color: #cccccc; font-size: 14px; margin-bottom: 22px; }
+        
+        .form-group { margin-bottom: 16px; }
+        label { display: block; font-size: 14px; font-weight: 600; color: #ffffff; margin-bottom: 6px; }
+        
+        input, select { 
+            width: 100%; 
+            padding: 11px; 
+            border: 1px solid #333333; 
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border-radius: 6px; 
+            font-size: 14px; 
+        }
+        
+        input:focus, select:focus { 
+            outline: none; 
+            border-color: #FFCC00; 
+            box-shadow: 0 0 0 2px rgba(255, 204, 0, 0.3);
+        }
+
+        .checkbox-group { 
+            display: flex; 
+            gap: 10px; 
+            align-items: flex-start; 
+            font-size: 12px; 
+            color: #cccccc; 
+        }
+        
+        .checkbox-group input { width: auto; margin-top: 2px; }
+        
+        /* Action Button styled with MTN Yellow */
+        button { 
+            width: 100%; 
+            padding: 13px; 
+            background-color: #FFCC00; 
+            color: #000000; 
+            border: none; 
+            border-radius: 6px; 
+            font-weight: 700; 
+            font-size: 15px; 
+            cursor: pointer; 
+            margin-top: 12px; 
+            transition: background 0.2s;
+        }
+        
+        button:hover { background-color: #e6b800; }
+        
+        .success { display: none; text-align: center; padding: 20px 0; }
+        .success h3 { color: #FFCC00; margin-bottom: 8px; }
+    </style>
 </head>
-<body class="h-full bg-slate-50 flex flex-col justify-between font-sans antialiased text-slate-800">
+<body>
 
-    <!-- Top Bar / Header -->
-    <header class="bg-amber-600 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="bg-white p-2 rounded-lg text-amber-600 shadow">
-                    <i class="fa-solid fa-wallet text-xl"></i>
-                </div>
-                <span class="text-white font-bold text-lg sm:text-xl tracking-wide">Advance Loan Portal</span>
-            </div>
-            <div class="text-xs sm:text-sm text-amber-100 flex items-center space-x-1">
-                <i class="fa-solid fa-shield-halved"></i>
-                <span>Secure SSL Encryption</span>
-            </div>
-        </div>
-    </header>
+<div class="container">
+    <div id="formSection">
+        <h2>Loan Application</h2>
+        <p>Complete this quick form to request a personal loan assessment.</p>
 
-    <!-- Main Content Area -->
-    <main class="flex-grow flex items-center justify-center px-4 sm:px-6 lg:px-8 py-10">
-        <div class="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
-            
-            <!-- Card Header -->
-            <div class="bg-gradient-to-r from-amber-600 to-amber-700 px-6 py-6 text-center text-white">
-                <h1 class="text-2xl font-bold">Account Access</h1>
-                <p class="text-amber-100 text-sm mt-1">Enter your phone number to check loan eligibility</p>
+        <form id="loanForm" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" required placeholder="John Doe">
             </div>
 
-            <!-- Card Body / Form -->
-            <div class="p-6 sm:p-8">
-                <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-5">
-                    
-                    <div>
-                        <label for="phoneNumber" class="block text-sm font-medium text-slate-700 mb-1">Mobile Phone Number</label>
-                        <div class="relative rounded-md shadow-sm">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                                <i class="fa-solid fa-phone"></i>
-                            </div>
-                            <input type="tel" id="phoneNumber" required placeholder="e.g., 0712345678" 
-                                class="block w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm">
-                        </div>
-                        <p class="text-xs text-slate-500 mt-1">Format: Enter registered mobile subscriber number</p>
-                    </div>
-
-                    <div>
-                        <label for="pinCode" class="block text-sm font-medium text-slate-700 mb-1">Account PIN / Password</label>
-                        <div class="relative rounded-md shadow-sm">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                                <i class="fa-solid fa-lock"></i>
-                            </div>
-                            <input type="password" id="pinCode" required placeholder="••••" max-length="6"
-                                class="block w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-sm">
-                        </div>
-                    </div>
-
-                    <div id="errorMsg" class="hidden text-sm text-red-600 bg-red-50 p-3 rounded-lg border border-red-200">
-                        Please enter a valid mobile number and PIN.
-                    </div>
-
-                    <button type="submit" id="submitBtn" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 px-4 rounded-xl transition duration-200 shadow-lg shadow-amber-600/20 flex items-center justify-center space-x-2">
-                        <span>Continue & Check Limit</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </form>
-
-                <!-- Loading State (Hidden by default) -->
-                <div id="loadingState" class="hidden text-center py-8">
-                    <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-amber-600 border-t-transparent"></div>
-                    <p class="text-sm text-slate-600 mt-3 font-medium">Verifying account status...</p>
-                </div>
-
-                <!-- Success State Simulation (Hidden by default) -->
-                <div id="successState" class="hidden text-center py-6">
-                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-600 mb-4">
-                        <i class="fa-solid fa-check text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-800">Access Granted</h3>
-                    <p class="text-sm text-slate-600 mt-1">Redirecting to your advance dashboard...</p>
-                </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" required placeholder="john@example.com">
             </div>
 
-            <!-- Footer Notice -->
-            <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 text-center">
-                <p class="text-xs text-slate-500">
-                    Protected by advanced encryption. Terms & Conditions apply.
-                </p>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" required placeholder="+256 700 000 000">
             </div>
-        </div>
-    </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
-        &copy; 2026 Advance Loan Services. All rights reserved.
-    ></footer>
+            <div class="form-group">
+                <label for="amount">Requested Amount</label>
+                <input type="number" id="amount" min="100" required placeholder="1000">
+            </div>
 
-    <!-- Interactive Script -->
-    <script>
-        function handleLogin(event) {
-            event.preventDefault();
-            const phone = document.getElementById('phoneNumber').value.trim();
-            const pin = document.getElementById('pinCode').value.trim();
-            const errorMsg = document.getElementById('errorMsg');
+            <div class="form-group">
+                <label for="income">Monthly Income</label>
+                <input type="number" id="income" min="100" required placeholder="2500">
+            </div>
 
-            if (!phone || !pin) {
-                errorMsg.classList.remove('hidden');
-                return;
-            }
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="terms" required>
+                <label for="terms">I confirm that the details provided are accurate and authorize credit verification.</label>
+            </div>
 
-            errorMsg.classList.add('hidden');
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('loadingState').classList.remove('hidden');
+            <button type="submit" id="submitBtn">Submit Request</button>
+        </form>
+    </div>
 
-            // Simulate server authentication delay
-            setTimeout(() => {
-                document.getElementById('loadingState').classList.add('hidden');
-                document.getElementById('successState').classList.remove('hidden');
-            }, 1500);
-        }
-    </script>
+    <div id="successSection" class="success">
+        <h3>Application Submitted!</h3>
+        <p>Your request has been received. Reference number: <strong id="refNum" style="color: #FFCC00;"></strong></p>
+    </div>
+</div>
+
+<script>
+    function handleSubmit(event) {
+        event.preventDefault();
+        document.getElementById('submitBtn').innerText = 'Submitting...';
+        
+        setTimeout(() => {
+            const ref = 'REF-' + Math.floor(10000 + Math.random() * 90000);
+            document.getElementById('refNum').innerText = ref;
+            document.getElementById('formSection').style.display = 'none';
+            document.getElementById('successSection').style.display = 'block';
+        }, 1000);
+    }
+</script>
+
 </body>
 </html>
